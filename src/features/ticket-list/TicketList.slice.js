@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   tickets: [],
+  dateFilter: '',
 };
 
 const slice = createSlice({
@@ -22,8 +23,11 @@ const slice = createSlice({
         ...ticket,
       };
     },
+    setDateFilter: (state, { payload: dateFilter }) => {
+      state.dateFilter = dateFilter;
+    },
   },
 });
 
-export const { createTicket, deleteTicket, updateTicket } = slice.actions;
+export const { createTicket, deleteTicket, updateTicket, setDateFilter } = slice.actions;
 export default slice.reducer;

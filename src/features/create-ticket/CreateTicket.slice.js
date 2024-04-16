@@ -5,6 +5,7 @@ const createForm = {
   description: '',
   status: '',
   phone: '',
+  date: '',
 };
 
 const initialState = {
@@ -27,9 +28,12 @@ const slice = createSlice({
     setPhone: (state, { payload }) => {
       state.form.phone = payload;
     },
+    setDate: (state, { payload }) => {
+      state.form.date = payload;
+    },
   },
 });
 
-export const { setCustomer, setDescription, setStatus, setPhone } =
+export const { setCustomer, setDescription, setStatus, setPhone, setDate } =
   slice.actions;
 export default slice.reducer;

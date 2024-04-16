@@ -1,12 +1,14 @@
 export const DONE = 'done';
+export const IN_PROGRESS = 'in_progress';
 export const RECALL = 'recall';
 export const CONNECTED = 'connected';
 export const D2D = 'd2d';
 
 /* This also represents the order of the labels */
-export const Status = [DONE, CONNECTED, RECALL, D2D];
+export const Status = [IN_PROGRESS, DONE, CONNECTED, RECALL, D2D];
 
 export const Translations = {
+  [IN_PROGRESS]: 'In Bearbeitung',
   [DONE]: 'Fertig',
   [RECALL]: 'Rückruf notwendig',
   [CONNECTED]: 'Weiterverbunden',
@@ -29,6 +31,7 @@ export const Translations = {
         e.g: bg-light -> text-light
  */
 export const ColorMap = {
+  [IN_PROGRESS]: 'bg-primary',
   [DONE]: 'bg-success text-light',
   [RECALL]: 'bg-warning text-dark',
   [CONNECTED]: 'bg-success text-light',

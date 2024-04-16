@@ -4,6 +4,7 @@ import {
   setDescription as setDescriptionAction,
   setStatus as setStatusAction,
   setPhone as setPhoneAction,
+  setDate as setDateAction,
 } from '../create-ticket/CreateTicket.slice';
 import { createTicket as createTicketAction } from '../ticket-list/TicketList.slice';
 import { connect } from 'react-redux';
@@ -11,11 +12,12 @@ import StatusDropdown from '../../components/status-dropdown/StatusDropdown';
 
 const CreateTicket = ({
   className,
-  form: { customer, description, status, phone },
+  form: { customer, description, status, phone, date },
   setCustomer,
   setDescription,
   setStatus,
   setPhone,
+  setDate,
   createTicket,
 }) => {
   const [isSubmitted, setSubmitted] = useState(false);
@@ -29,19 +31,21 @@ const CreateTicket = ({
     }
 
     createTicket({
-      createdAt: new Date().getTime(),
+      createdAt: date,
       customer,
       description,
       status,
       phone,
     });
+
+    setDate(new Date().toISOString().substring(0,10));
   };
 
   return (
     <form className={className} onSubmit={handleSubmit}>
       <label className="row form-label">
         <span className="col">Kundennummer:</span>
-        <div className="col">
+        <div className="col col-9">
           <input
             name="customer"
             className={`form-control${
@@ -57,7 +61,7 @@ const CreateTicket = ({
       </label>
       <label className="row form-label">
         <span className="col">Telefonnummer:</span>
-        <div className="col">
+        <div className="col col-9">
           <input
             name="phone"
             className={`form-control${
@@ -72,8 +76,8 @@ const CreateTicket = ({
         </div>
       </label>
       <label className="row form-label">
-        <span className="col">Beschreibung:</span>
-        <div className="col">
+        <span className="col">Notiz:</span>
+        <div className="col col-9">
           <textarea
             name="description"
             className={`form-control${
@@ -90,7 +94,7 @@ const CreateTicket = ({
       </label>
       <label className="row form-label">
         <span className="col">Status:</span>
-        <div className="col">
+        <div className="col col-9">
           <StatusDropdown
             includeEmpty
             validate={isSubmitted}
@@ -98,6 +102,23 @@ const CreateTicket = ({
             onChange={e => {
               setSubmitted(false);
               setStatus(e.target.value);
+            }}
+          />
+        </div>
+      </label>
+      <label className="row form-label">
+        <span className="col">Datum:</span>
+        <div className="col col-9">
+          <input
+            name="date"
+            type="date"
+            className={`form-control${
+              isSubmitted && !phone ? ' is-invalid' : ''
+            }`}
+            value={date}
+            onChange={e => {
+              setSubmitted(false);
+              setDate(e.target.value);
             }}
           />
         </div>
@@ -116,6 +137,7 @@ const mapStateToProps = state => ({
     description: state.CreateTicket.form.description,
     status: state.CreateTicket.form.status,
     phone: state.CreateTicket.form.phone,
+    date: state.CreateTicket.form.date,
   },
 });
 
@@ -124,6 +146,7 @@ const mapDispatchToProps = dispatch => ({
   setDescription: value => dispatch(setDescriptionAction(value)),
   setStatus: value => dispatch(setStatusAction(value)),
   setPhone: value => dispatch(setPhoneAction(value)),
+  setDate: value => dispatch(setDateAction(value)),
   createTicket: ticket => dispatch(createTicketAction(ticket)),
 });
 
