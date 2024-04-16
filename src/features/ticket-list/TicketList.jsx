@@ -43,14 +43,24 @@ const TicketList = ({ tickets, setEditing, editing, setDateFilter, dateFilter })
             {divider}
             <tr key={id}>
               <td className="text-center">
-                <button
-                  className={`btn ${
-                    editing === id ? 'btn-primary' : 'btn-secondary'
-                  }`}
-                  onClick={() => setEditing(ticket)}
-                >
-                  <i className="bi-pencil"></i>
-                </button>
+                <div className="btn-group">
+                  <button
+                    className={`btn btn-primary ${
+                      editing === id && 'active'
+                    }`}
+                    onClick={() => setEditing(ticket)}
+                  >
+                    <i className="bi-pencil"></i>
+                  </button>
+                  <a
+                    href={ticket.customer.includes('.') ? 'sfmc' : 'old'}
+                    target="_blank"
+                    className="btn btn-secondary"
+                    onClick={() => setEditing(ticket)}
+                  >
+                    <i className="bi-box-arrow-up-right"></i>
+                  </a>
+                </div>
               </td>
               <td>{customer}</td>
               <td className="text-center">
